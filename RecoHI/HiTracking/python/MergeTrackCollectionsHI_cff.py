@@ -4,15 +4,17 @@ import RecoTracker.FinalTrackSelectors.trackListMerger_cfi
 hiGeneralTracksNoRegitMu = RecoTracker.FinalTrackSelectors.trackListMerger_cfi.trackListMerger.clone(
     TrackProducers = (cms.InputTag('hiGlobalPrimTracks'),
                       cms.InputTag('hiSecondPixelTripletGlobalPrimTracks'),
-                      cms.InputTag('hiPixelPairGlobalPrimTracks')
+                      cms.InputTag('hiPixelPairGlobalPrimTracks'),
+                      cms.InputTag('hiDetachedTracks')
                      ),
-    hasSelector=cms.vint32(1,1,1),
+    hasSelector=cms.vint32(1,1,1,1),
     selectedTrackQuals = cms.VInputTag(
     cms.InputTag("hiInitialStepSelector","hiInitialStep"),
     cms.InputTag("hiSecondPixelTripletStepSelector","hiSecondPixelTripletStep"),
     cms.InputTag("hiPixelPairStepSelector","hiPixelPairStep"),
+    cms.InputTag("hiDetachedSelector","hiDetachedStep"),
     ),                    
-    setsToMerge = cms.VPSet( cms.PSet( tLists=cms.vint32(0,1,2), pQual=cms.bool(True)),  # should this be False?
+    setsToMerge = cms.VPSet( cms.PSet( tLists=cms.vint32(0,1,2,3), pQual=cms.bool(True)),  # should this be False?
                              ),
     copyExtras = True,
     makeReKeyedSeeds = cms.untracked.bool(False)
@@ -22,6 +24,7 @@ hiGeneralTracks = RecoTracker.FinalTrackSelectors.trackListMerger_cfi.trackListM
     TrackProducers = (cms.InputTag('hiGlobalPrimTracks'),
                       cms.InputTag('hiSecondPixelTripletGlobalPrimTracks'),
                       cms.InputTag('hiPixelPairGlobalPrimTracks'),
+                      cms.InputTag('hiDetachedTracks'),
                       cms.InputTag('hiRegitMuInitialStepTracks'),
                       cms.InputTag('hiRegitMuLowPtTripletStepTracks'),
                       cms.InputTag('hiRegitMuPixelPairStepTracks'),
@@ -30,11 +33,12 @@ hiGeneralTracks = RecoTracker.FinalTrackSelectors.trackListMerger_cfi.trackListM
                       cms.InputTag('hiRegitMuPixelLessStepTracks'),
                       cms.InputTag('hiRegitMuTobTecStepTracks')
                      ),
-    hasSelector=cms.vint32(1,1,1,1,1,1,1,1,1,1),
+    hasSelector=cms.vint32(1,1,1,1,1,1,1,1,1,1,1),
     selectedTrackQuals = cms.VInputTag(
     cms.InputTag("hiInitialStepSelector","hiInitialStep"),
     cms.InputTag("hiSecondPixelTripletStepSelector","hiSecondPixelTripletStep"),
     cms.InputTag("hiPixelPairStepSelector","hiPixelPairStep"),
+    cms.InputTag("hiDetachedSelector","hiDetachedStep"),
     cms.InputTag("hiRegitMuInitialStepSelector","hiRegitMuInitialStepLoose"),
     cms.InputTag("hiRegitMuLowPtTripletStepSelector","hiRegitMuLowPtTripletStepLoose"),
     cms.InputTag("hiRegitMuPixelPairStepSelector","hiRegitMuPixelPairStep"),
@@ -43,7 +47,7 @@ hiGeneralTracks = RecoTracker.FinalTrackSelectors.trackListMerger_cfi.trackListM
     cms.InputTag("hiRegitMuPixelLessStepSelector","hiRegitMuPixelLessStep"),
     cms.InputTag("hiRegitMuTobTecStepSelector","hiRegitMuTobTecStep")
     ),                    
-    setsToMerge = cms.VPSet( cms.PSet( tLists=cms.vint32(0,1,2,3,4,5,6,7,8,9), pQual=cms.bool(True)),  # should this be False?
+    setsToMerge = cms.VPSet( cms.PSet( tLists=cms.vint32(0,1,2,3,4,5,6,7,8,9,10), pQual=cms.bool(True)),  # should this be False?
                              ),
     copyExtras = True,
     makeReKeyedSeeds = cms.untracked.bool(False)
