@@ -72,7 +72,7 @@
 				  std::vector<float> &vterr,
 				  std::vector<float> &vzerr) const;
 
-	    void processMVA(edm::Event& evt, const edm::EventSetup& es, std::vector<float> & mvaVals_) const;
+	    void processMVA(edm::Event& evt, const edm::EventSetup& es, std::vector<float> & mvaVals_,const reco::VertexCollection &hVtx) const;
 
             /// source collection label
             edm::EDGetTokenT<reco::TrackCollection> src_;
@@ -144,6 +144,7 @@
 	    //std::vector<std::string> mvaType_;
 	    std::string mvaType_;
 	    std::string forestLabel_;
+	    std::vector<std::string> forestVars_;
 	    GBRForest * forest_;
 	    bool useForestFromDB_;
 	    std::string dbFileName_;

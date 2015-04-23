@@ -271,7 +271,7 @@ void AnalyticalTrackSelector::run( edm::Event& evt, const edm::EventSetup& es ) 
   if (copyTrajectories_) trackRefs_.resize(hSrcTrack->size());
 
   std::vector<float>  mvaVals_(hSrcTrack->size(),-99.f);
-  processMVA(evt,es,mvaVals_);
+  processMVA(evt,es,mvaVals_, *hVtx);
 
   // Loop over tracks
   size_t current = 0;
