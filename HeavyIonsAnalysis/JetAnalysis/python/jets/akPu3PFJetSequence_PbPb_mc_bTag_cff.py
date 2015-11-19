@@ -12,8 +12,8 @@ akPu3PFmatch = patJetGenJetMatch.clone(
     maxDeltaR = 0.3
     )
 
-akPu3PFparton = patJetPartonMatch.clone(src = cms.InputTag("akPu3PFJets")
-                                                        )
+akPu3PFparton = patJetPartonMatch.clone(src = cms.InputTag("akPu3PFJets"),
+                                                        matched = cms.InputTag("genParticles"))
 
 akPu3PFcorr = patJetCorrFactors.clone(
     useNPV = False,
@@ -135,6 +135,8 @@ akPu3PFJetBtagging = cms.Sequence(akPu3PFJetBtaggingIP
             *akPu3PFJetBtaggingNegSV
             *akPu3PFJetBtaggingMu
             )
+
+akPu3PFJetTracksAssociatorAtVertex.tracks = cms.InputTag("hiGeneralTracks")
 
 akPu3PFpatJetsWithBtagging = patJets.clone(jetSource = cms.InputTag("akPu3PFJets"),
         genJetMatch          = cms.InputTag("akPu3PFmatch"),

@@ -11,8 +11,8 @@ ALGO_SUB_RADIUS_OBJECT_match = patJetGenJetMatch.clone(
     maxDeltaR = 0.RADIUS_
     )
 
-ALGO_SUB_RADIUS_OBJECT_parton = patJetPartonMatch.clone(src = cms.InputTag("ALGO_SUB_RADIUS_OBJECT_Jets")
-                                                        )
+ALGO_SUB_RADIUS_OBJECT_parton = patJetPartonMatch.clone(src = cms.InputTag("ALGO_SUB_RADIUS_OBJECT_Jets"),
+                                                        matched = cms.InputTag("GENPARTICLES"))
 
 ALGO_SUB_RADIUS_OBJECT_corr = patJetCorrFactors.clone(
     useNPV = False,
@@ -134,6 +134,8 @@ ALGO_SUB_RADIUS_OBJECT_JetBtagging = cms.Sequence(ALGO_SUB_RADIUS_OBJECT_JetBtag
             *ALGO_SUB_RADIUS_OBJECT_JetBtaggingNegSV
             *ALGO_SUB_RADIUS_OBJECT_JetBtaggingMu
             )
+
+ALGO_SUB_RADIUS_OBJECT_JetTracksAssociatorAtVertex.tracks = cms.InputTag("TRACKS")
 
 ALGO_SUB_RADIUS_OBJECT_patJetsWithBtagging = patJets.clone(jetSource = cms.InputTag("ALGO_SUB_RADIUS_OBJECT_Jets"),
         genJetMatch          = cms.InputTag("ALGO_SUB_RADIUS_OBJECT_match"),
