@@ -22,6 +22,10 @@ ALGO_SUB_RADIUS_OBJECT_corr = patJetCorrFactors.clone(
     payload = "CORRNAME_"
     )
 
+selectedTracks = cms.EDFilter("TrackSelector",
+                       src = cms.InputTag("TRACKS"),
+                       cut = cms.string('quality("highPurity")'))
+
 ALGO_SUB_RADIUS_OBJECT_JetID= cms.EDProducer('JetIDProducer', JetIDParams, src = cms.InputTag('ALGO_SUB_RADIUS_CaloJets'))
 
 #ALGO_SUB_RADIUS_OBJECT_clean   = heavyIonCleanedGenJets.clone(src = cms.InputTag('ALGO_RADIUS_GENJETS'))
@@ -34,7 +38,7 @@ ALGO_SUB_RADIUS_OBJECT_parton = patJetPartonMatch.clone(src = cms.InputTag("ALGO
 ALGO_SUB_RADIUS_OBJECT_PatJetFlavourAssociationLegacy = ALGO_SUB_RADIUS_OBJECT_bTagger.PatJetFlavourAssociationLegacy
 ALGO_SUB_RADIUS_OBJECT_PatJetPartons = ALGO_SUB_RADIUS_OBJECT_bTagger.PatJetPartons
 ALGO_SUB_RADIUS_OBJECT_JetTracksAssociatorAtVertex = ALGO_SUB_RADIUS_OBJECT_bTagger.JetTracksAssociatorAtVertex
-ALGO_SUB_RADIUS_OBJECT_JetTracksAssociatorAtVertex.tracks = cms.InputTag("TRACKS")
+ALGO_SUB_RADIUS_OBJECT_JetTracksAssociatorAtVertex.tracks = cms.InputTag("selectedTracks")
 ALGO_SUB_RADIUS_OBJECT_SimpleSecondaryVertexHighEffBJetTags = ALGO_SUB_RADIUS_OBJECT_bTagger.SimpleSecondaryVertexHighEffBJetTags
 ALGO_SUB_RADIUS_OBJECT_SimpleSecondaryVertexHighPurBJetTags = ALGO_SUB_RADIUS_OBJECT_bTagger.SimpleSecondaryVertexHighPurBJetTags
 ALGO_SUB_RADIUS_OBJECT_CombinedSecondaryVertexBJetTags = ALGO_SUB_RADIUS_OBJECT_bTagger.CombinedSecondaryVertexBJetTags
@@ -193,6 +197,8 @@ ALGO_SUB_RADIUS_OBJECT_JetAnalyzer = inclusiveJetAnalyzer.clone(jetTag = cms.Inp
                                                              )
 
 ALGO_SUB_RADIUS_OBJECT_JetSequence_mc = cms.Sequence(
+				                  selectedTracks
+						  *
                                                   #ALGO_SUB_RADIUS_OBJECT_clean
                                                   #*
                                                   ALGO_SUB_RADIUS_OBJECT_match
@@ -216,7 +222,10 @@ ALGO_SUB_RADIUS_OBJECT_JetSequence_mc = cms.Sequence(
                                                   ALGO_SUB_RADIUS_OBJECT_JetAnalyzer
                                                   )
 
-ALGO_SUB_RADIUS_OBJECT_JetSequence_data = cms.Sequence(ALGO_SUB_RADIUS_OBJECT_corr
+ALGO_SUB_RADIUS_OBJECT_JetSequence_data = cms.Sequence(
+				                    selectedTracks
+						    *
+						    ALGO_SUB_RADIUS_OBJECT_corr
                                                     *
                                                     ALGO_SUB_RADIUS_OBJECT_JetID
                                                     *
